@@ -1,0 +1,6 @@
+{
+  "name": "Daily Departure",
+  "description": "Premium travel platform for booking flights, hotels, holiday packages, and visa assistance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
