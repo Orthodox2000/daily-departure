@@ -19,19 +19,19 @@ export const SearchWidget: React.FC<SearchWidgetProps> = ({
   // Flights State
   const [flightFrom, setFlightFrom] = useState('Mumbai (BOM)');
   const [flightTo, setFlightTo] = useState('Dubai (DXB)');
-  const [flightDate, setFlightDate] = useState('2026-05-25');
+  const [flightDate, setFlightDate] = useState('');
   const [flightTravellers, setFlightTravellers] = useState('1 Traveller, Economy');
   const [tripType, setTripType] = useState<'one-way' | 'round-trip'>('one-way');
 
   // Hotels State
   const [hotelCity, setHotelCity] = useState('Dubai, UAE');
-  const [hotelCheckIn, setHotelCheckIn] = useState('2026-05-25');
-  const [hotelCheckOut, setHotelCheckOut] = useState('2026-05-29');
+  const [hotelCheckIn, setHotelCheckIn] = useState('');
+  const [hotelCheckOut, setHotelCheckOut] = useState('');
   const [hotelGuests, setHotelGuests] = useState('2 Adults, 1 Room');
 
   // Holidays State
   const [holidayDest, setHolidayDest] = useState('Maldives');
-  const [holidayMonth, setHolidayMonth] = useState('May 2026');
+  const [holidayDate, setHolidayDate] = useState('');
   const [holidayDuration, setHolidayDuration] = useState('4-7 Days');
   const [holidayTravelers, setHolidayTravelers] = useState('2 Travelers (Couple)');
 
@@ -54,7 +54,7 @@ export const SearchWidget: React.FC<SearchWidgetProps> = ({
     } else if (activeTab === 'Hotels') {
       params = { city: hotelCity, checkIn: hotelCheckIn, checkOut: hotelCheckOut, guests: hotelGuests };
     } else if (activeTab === 'Holidays') {
-      params = { destination: holidayDest, month: holidayMonth, duration: holidayDuration, travelers: holidayTravelers };
+      params = { destination: holidayDest, departureDate: holidayDate, duration: holidayDuration, travelers: holidayTravelers };
     } else if (activeTab === 'Visa') {
       params = { country: visaCountry, type: visaType };
     }
@@ -312,22 +312,17 @@ export const SearchWidget: React.FC<SearchWidgetProps> = ({
               </div>
             </div>
 
-            {/* Month */}
+            {/* Departure - optional, user picks a date (never hardcoded) */}
             <div className="p-3 bg-white hover:bg-[#FAF9F6] transition-colors">
-              <p className="text-[10px] uppercase font-bold tracking-widest text-gray-400 block mb-1">Month of Travel</p>
+              <p className="text-[10px] uppercase font-bold tracking-widest text-gray-400 block mb-1">Departure (Optional)</p>
               <div className="flex items-center gap-2">
                 <Calendar size={15} className="text-brand-maroon shrink-0" />
-                <select 
-                  value={holidayMonth}
-                  onChange={(e) => setHolidayMonth(e.target.value)}
-                  className="w-full text-sm font-bold text-[#1a2b48] outline-none bg-transparent cursor-pointer"
-                >
-                  <option value="May 2026">May 2026</option>
-                  <option value="June 2026">June 2026</option>
-                  <option value="July 2026">July 2026</option>
-                  <option value="August 2026">August 2026</option>
-                  <option value="Flexible Dates">Flexible Dates</option>
-                </select>
+                <input
+                  type="date"
+                  value={holidayDate}
+                  onChange={(e) => setHolidayDate(e.target.value)}
+                  className="w-full text-sm font-bold text-[#1a2b48] outline-none bg-transparent"
+                />
               </div>
             </div>
 

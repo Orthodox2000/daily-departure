@@ -21,9 +21,14 @@ export const HolidaysPage: React.FC<HolidaysPageProps> = ({
   // Search state
   const [searchDest, setSearchDest] = useState('');
   const [searchTravelers, setSearchTravelers] = useState('2 Travellers');
-  const [searchDeparture, setSearchDeparture] = useState('Anytime');
+  const [searchDepartFrom, setSearchDepartFrom] = useState('');
+  const [searchDepartTo, setSearchDepartTo] = useState('');
   const [searchDuration, setSearchDuration] = useState('Any Duration');
   const { openLead } = useLeadForm();
+
+  const departureLabel = searchDepartFrom && searchDepartTo
+    ? `${searchDepartFrom} to ${searchDepartTo}`
+    : searchDepartFrom || searchDepartTo || 'Anytime';
 
   const filteredPackages = HOLIDAY_PACKAGES.filter((p) => {
     if (!searchDest) return true;
@@ -99,21 +104,27 @@ export const HolidaysPage: React.FC<HolidaysPageProps> = ({
               </div>
             </div>
 
-            {/* Departure */}
+            {/* Departure - optional date range (no hardcoded dates) */}
             <div className="border border-gray-200 rounded-lg p-2.5 bg-gray-50/50">
-              <span className="text-[10px] font-semibold text-gray-400 uppercase block">Departure</span>
-              <div className="flex items-center gap-1.5 mt-0.5">
+              <span className="text-[10px] font-semibold text-gray-400 uppercase block">Departure (optional)</span>
+              <div className="flex items-center gap-1 mt-0.5">
                 <Calendar size={14} className="text-gray-400 shrink-0" />
-                <select
-                  value={searchDeparture}
-                  onChange={(e) => setSearchDeparture(e.target.value)}
-                  className="w-full text-xs font-semibold text-gray-800 outline-none bg-transparent cursor-pointer"
-                >
-                  <option value="Anytime">Anytime</option>
-                  <option value="May 2026">May 2026</option>
-                  <option value="June 2026">June 2026</option>
-                  <option value="July 2026">July 2026</option>
-                </select>
+                <input
+                  type="date"
+                  value={searchDepartFrom}
+                  onChange={(e) => setSearchDepartFrom(e.target.value)}
+                  className="w-full text-xs font-semibold text-gray-800 outline-none bg-transparent"
+                />
+              </div>
+              <div className="flex items-center gap-1 mt-1">
+                <ArrowRight size={14} className="text-gray-400 shrink-0" />
+                <input
+                  type="date"
+                  value={searchDepartTo}
+                  min={searchDepartFrom || undefined}
+                  onChange={(e) => setSearchDepartTo(e.target.value)}
+                  className="w-full text-xs font-semibold text-gray-800 outline-none bg-transparent"
+                />
               </div>
             </div>
 
@@ -138,7 +149,7 @@ export const HolidaysPage: React.FC<HolidaysPageProps> = ({
             {/* Submit */}
             <button
               type="button"
-              onClick={() => openLead(`Holiday Search — ${searchDest || 'Any destination'} • ${searchTravelers} • ${searchDeparture} • ${searchDuration}`)}
+              onClick={() => openLead(`Holiday Search — ${searchDest || 'Any destination'} • ${searchTravelers} • Departing ${departureLabel} • ${searchDuration}`)}
               className="bg-[#800020] hover:bg-[#600018] text-white h-[50px] rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
             >
               <span>Search Holidays</span>
@@ -216,7 +227,7 @@ export const HolidaysPage: React.FC<HolidaysPageProps> = ({
               </p>
               <button
                 type="button"
-                onClick={() => openLead(`Holiday Enquiry${searchDest ? ` — ${searchDest}` : ''} • ${searchTravelers} • ${searchDeparture}`)}
+                onClick={() => openLead(`Holiday Enquiry${searchDest ? ` — ${searchDest}` : ''} • ${searchTravelers} • Departing ${departureLabel}`)}
                 className="w-full bg-[#800020] hover:bg-[#600018] text-white py-3 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer"
               >
                 <span>Start My Holiday Plan</span>

@@ -127,11 +127,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, onNavigate, onOpenBo
           
           <div className="mt-5 pt-4 border-t border-gray-100 flex flex-col gap-2.5">
             <a 
-              href="tel:+919876543210" 
+              href="tel:+91976664040" 
               className="flex items-center justify-center gap-2 py-2 rounded-md bg-gray-50 text-xs font-semibold text-gray-700"
             >
               <PhoneCall size={14} className="text-[#800020]" />
-              <span>+91 98765 43210</span>
+              <span>+91 9766 64040</span>
             </a>
             <button
               id="mobile-drawer-book-now"

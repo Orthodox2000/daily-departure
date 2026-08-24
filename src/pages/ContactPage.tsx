@@ -183,8 +183,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onShowToast }) => {
                   </div>
                   <div>
                     <span className="text-[11px] text-gray-400 uppercase font-semibold block">Phone</span>
-                    <a href="tel:+919876543210" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
-                      +91 98765 43210
+                    <a href="tel:+91976664040" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
+                      +91 9766 64040
                     </a>
                     <p className="text-xs text-gray-500 font-light mt-0.5">Mon - Sat: 9:00 AM - 7:00 PM</p>
                   </div>
@@ -197,8 +197,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onShowToast }) => {
                   </div>
                   <div>
                     <span className="text-[11px] text-gray-400 uppercase font-semibold block">Email</span>
-                    <a href="mailto:info@dailydeparture.com" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
-                      info@dailydeparture.com
+                    <a href="mailto:dailydeparture.in@gmail.com" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
+                      dailydeparture.in@gmail.com
                     </a>
                     <p className="text-xs text-gray-500 font-light mt-0.5">We reply within 24 hours</p>
                   </div>
@@ -245,23 +245,6 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onShowToast }) => {
             className="w-full h-full object-cover brightness-95"
           />
           <div className="absolute inset-0 bg-black/10"></div>
-
-          {/* Map Pin Marker Center */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center pointer-events-none">
-            <div className="w-8 h-8 rounded-full bg-[#800020] text-white flex items-center justify-center shadow-lg border-2 border-white animate-bounce">
-              <MapPin size={18} />
-            </div>
-            <div className="w-3 h-1 bg-black/40 rounded-full blur-xs mt-0.5"></div>
-          </div>
-
-          {/* Floating Office Card Bottom Left matching screenshot */}
-          <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-xs p-3.5 rounded-lg shadow-md border border-gray-200 max-w-xs">
-            <h4 className="text-xs font-bold text-[#1a2b48] serif uppercase tracking-wider">Our Office</h4>
-            <p className="text-[11px] text-gray-600 mt-0.5 leading-tight">
-              123, Travel Street, Andheri (E) <br />
-              Mumbai, Maharashtra - 400069, India
-            </p>
-          </div>
         </div>
       </section>
     </main>

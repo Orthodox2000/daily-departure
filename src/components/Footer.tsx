@@ -110,24 +110,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onShowToast }) => {
           </h4>
           <ul className="text-xs space-y-4">
             <li>
-              <a href="tel:+919876543210" className="flex items-start gap-3 hover:text-white transition-colors group">
+              <a href="tel:+91976664040" className="flex items-start gap-3 hover:text-white transition-colors group">
                 <div className="p-2 rounded-sm bg-white/10 text-brand-orange group-hover:bg-brand-maroon group-hover:text-white transition-colors mt-0.5">
                   <Phone size={14} />
                 </div>
                 <div>
                   <span className="text-[10px] text-gray-400 block uppercase tracking-wider">Helpline</span>
-                  <span className="font-semibold text-white text-xs">+91 98765 43210</span>
+                  <span className="font-semibold text-white text-xs">+91 9766 64040</span>
                 </div>
               </a>
             </li>
             <li>
-              <a href="mailto:info@dailydeparture.com" className="flex items-start gap-3 hover:text-white transition-colors group">
+              <a href="mailto:dailydeparture.in@gmail.com" className="flex items-start gap-3 hover:text-white transition-colors group">
                 <div className="p-2 rounded-sm bg-white/10 text-brand-orange group-hover:bg-brand-maroon group-hover:text-white transition-colors mt-0.5">
                   <Mail size={14} />
                 </div>
                 <div>
                   <span className="text-[10px] text-gray-400 block uppercase tracking-wider">Email</span>
-                  <span className="font-semibold text-white text-xs">info@dailydeparture.com</span>
+                  <span className="font-semibold text-white text-xs">dailydeparture.in@gmail.com</span>
                 </div>
               </a>
             </li>

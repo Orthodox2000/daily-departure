@@ -566,7 +566,7 @@ export const VISA_DESTINATIONS: VisaDestination[] = [
     country: 'United States',
     region: 'United States',
     types: 'Tourism, Business, Study',
-    image: 'https://images.unsplash.com/photo-1508873696983-2df5703bc20d?auto=format&fit=crop&w=600&q=80',
+    image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80',
     flag: '🇺🇸',
     processingTime: 'Based on Slot',
     stayPeriod: 'Up to 180 Days',
