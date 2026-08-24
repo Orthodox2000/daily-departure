@@ -20,7 +20,7 @@ export const Toast: React.FC<ToastProps> = ({ message, onClose }) => {
   if (!message) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 max-w-md bg-brand-navy text-white px-5 py-3.5 rounded-xl shadow-2xl border border-gray-700 flex items-center gap-3 animate-in slide-in-from-bottom-5 fade-in duration-300">
+    <div className="fixed bottom-6 right-6 z-[100] max-w-md bg-brand-navy text-white px-5 py-3.5 rounded-xl shadow-2xl border border-gray-700 flex items-center gap-3 animate-in slide-in-from-bottom-5 fade-in duration-300">
       <CheckCircle2 size={20} className="text-emerald-400 shrink-0" />
       <p className="text-sm font-medium leading-snug flex-1">{message}</p>
       <button 

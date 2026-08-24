@@ -55,13 +55,14 @@ export const LeadProvider: React.FC<LeadProviderProps> = ({ onSuccess, children 
         countryCode: payload.countryCode,
         phone: `${payload.countryCode} ${payload.phone}`.trim(),
         source,
+        message: payload.message,
       });
       setSubmitting(false);
       setSubmitted(true);
       onSuccess?.('Request received! Our travel expert will contact you shortly.');
-    } catch {
+    } catch (err) {
       setSubmitting(false);
-      onSuccess?.('Something went wrong. Please try again.');
+      onSuccess?.(err instanceof Error && err.message ? err.message : 'Something went wrong. Please try again.');
     }
   };
 

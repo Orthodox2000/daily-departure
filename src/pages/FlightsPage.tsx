@@ -8,18 +8,14 @@ import {
 //   Plane, Search, ArrowRight, ArrowRightLeft, Calendar, 
 //   Users, Tag, ShieldCheck, Headset, CalendarCheck, Mail, Send, CheckCircle2 
 // } from 'lucide-react';
-import { FLIGHT_DEALS, FlightDeal } from '../data/travelData';
+import { FLIGHT_DEALS } from '../data/travelData';
 import { useLeadForm } from '../context/LeadContext';
 
 interface FlightsPageProps {
-  onSelectFlight: (flight: FlightDeal) => void;
-  onOpenBookModal: (service?: 'Flights' | 'Hotels' | 'Holidays' | 'Visa') => void;
   onShowToast: (msg: string) => void;
 }
 
 export const FlightsPage: React.FC<FlightsPageProps> = ({ 
-  onSelectFlight, 
-  onOpenBookModal, 
   onShowToast 
 }) => {
   const [tripType, setTripType] = useState<'One Way' | 'Round Trip' | 'Multi City'>('One Way');
@@ -168,7 +164,7 @@ export const FlightsPage: React.FC<FlightsPageProps> = ({
             {/* Search Button */}
             <button
               type="button"
-              onClick={() => onOpenBookModal('Flights')}
+              onClick={() => openLead(`Flight Search — ${origin} to ${destination} • ${departureDate || 'flexible dates'} • ${travellers}`)}
               className="bg-[#800020] hover:bg-[#600018] text-white h-[50px] rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
             >
               <span>Search Flights</span>
@@ -183,7 +179,7 @@ export const FlightsPage: React.FC<FlightsPageProps> = ({
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl sm:text-2xl font-bold serif text-[#1a2b48]">Popular Flight Deals</h2>
           <button
-            onClick={() => onOpenBookModal('Flights')}
+            onClick={() => openLead('Flights Enquiry — All Deals')}
             className="text-xs sm:text-sm font-semibold text-gray-600 hover:text-[#800020] flex items-center gap-1 cursor-pointer"
           >
             <span>View All</span>
@@ -195,7 +191,7 @@ export const FlightsPage: React.FC<FlightsPageProps> = ({
           {FLIGHT_DEALS.map((deal) => (
             <div
               key={deal.id}
-              onClick={() => onSelectFlight(deal)}
+              onClick={() => openLead(`Flight Deal — ${deal.airline} ${deal.fromCode} to ${deal.toCode} • ${deal.price}`)}
               className="bg-white border border-gray-200/80 rounded-xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
               <div>

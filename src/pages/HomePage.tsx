@@ -4,23 +4,19 @@ import { Calendar, BadgePercent, ShieldCheck, Globe, Headphones, Star, ArrowRigh
 // Unused icon cleaned up: Sparkles (hero badge removed)
 // import { Calendar, BadgePercent, ShieldCheck, Globe, Headphones, Star, ArrowRight, PlaneTakeoff, Sparkles } from 'lucide-react';
 import { SearchWidget, SearchTab } from '../components/SearchWidget';
-import { POPULAR_DESTINATIONS, HOLIDAY_PACKAGES, TESTIMONIALS, Destination, HolidayPackage } from '../data/travelData';
+import { POPULAR_DESTINATIONS, HOLIDAY_PACKAGES, TESTIMONIALS } from '../data/travelData';
+import { useLeadForm } from '../context/LeadContext';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
-  onSelectDestination: (dest: Destination) => void;
-  onSelectPackage: (pkg: HolidayPackage) => void;
-  onOpenBookModal: (service?: 'Flights' | 'Hotels' | 'Holidays' | 'Visa') => void;
   onSearchSubmitted: (tab: SearchTab, params: Record<string, string>) => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
-  onSelectDestination,
-  onSelectPackage,
-  onOpenBookModal,
   onSearchSubmitted
 }) => {
+  const { openLead } = useLeadForm();
   // Hero background images taken directly from curated holiday package cards
   const heroBackgrounds = HOLIDAY_PACKAGES.map(pkg => ({
     id: pkg.id,
@@ -153,7 +149,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div 
               key={dest.id} 
               id={`destination-card-${dest.id}`}
-              onClick={() => onSelectDestination(dest)}
+              onClick={() => openLead(`Destination Enquiry — ${dest.name}, ${dest.country} • ${dest.duration} • ${dest.price}`)}
               className="relative h-88 rounded-sm overflow-hidden group cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 border border-[#e5e5e5] bg-white"
             >
               <img 
@@ -219,7 +215,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div
                 key={pkg.id}
                 id={`featured-pkg-${pkg.id}`}
-                onClick={() => onSelectPackage(pkg)}
+                onClick={() => openLead(`Holiday Package — ${pkg.title} (${pkg.duration}) • ${pkg.price}`)}
                 className="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-lg border border-[#e5e5e5] transition-all duration-300 flex flex-col cursor-pointer group"
               >
                 <div className="relative h-56 overflow-hidden">
@@ -264,7 +260,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        onSelectPackage(pkg);
+                        openLead(`Holiday Package — ${pkg.title} (${pkg.duration}) • ${pkg.price}`);
                       }}
                       className="bg-brand-maroon text-white hover:bg-brand-maroon-dark px-4 py-2 rounded-sm text-xs font-semibold transition-all cursor-pointer"
                     >
@@ -379,7 +375,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <button
-              onClick={() => onOpenBookModal('Holidays')}
+              onClick={() => openLead('Holiday Package — Plan My Vacation')}
               className="bg-brand-maroon text-white hover:bg-brand-maroon-dark px-8 py-3 rounded-sm font-semibold text-sm shadow-md transition-all cursor-pointer active:scale-95"
             >
               Plan My Vacation

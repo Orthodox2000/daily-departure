@@ -8,31 +8,24 @@ import {
 //   FileCheck, ShieldCheck, Clock, CheckCircle2, ArrowRight, 
 //   HelpCircle, Users, Headset, FileText, CreditCard, CheckCheck, ChevronRight
 // } from 'lucide-react';
-import { VISA_DESTINATIONS, VisaDestination } from '../data/travelData';
+import { VISA_DESTINATIONS } from '../data/travelData';
+import { useLeadForm } from '../context/LeadContext';
 
 interface VisaPageProps {
-  onSelectVisa: (visa: VisaDestination) => void;
-  onOpenBookModal: (service?: 'Flights' | 'Hotels' | 'Holidays' | 'Visa') => void;
   onNavigate: (page: string) => void;
 }
 
 export const VisaPage: React.FC<VisaPageProps> = ({ 
-  onSelectVisa, 
-  onOpenBookModal, 
   onNavigate 
 }) => {
+  const { openLead } = useLeadForm();
   const [selectedCountry, setSelectedCountry] = useState('Schengen');
   const [fromCountry, setFromCountry] = useState('India');
   const [purpose, setPurpose] = useState('Tourism');
 
   const handleCheckRequirements = (e: React.FormEvent) => {
     e.preventDefault();
-    const found = VISA_DESTINATIONS.find(v => v.id.toLowerCase().includes(selectedCountry.toLowerCase()) || v.title.toLowerCase().includes(selectedCountry.toLowerCase()));
-    if (found) {
-      onSelectVisa(found);
-    } else {
-      onOpenBookModal('Visa');
-    }
+    openLead(`Visa Assistance — ${selectedCountry} • Traveling from ${fromCountry} • ${purpose}`);
   };
 
   return (
@@ -131,7 +124,7 @@ export const VisaPage: React.FC<VisaPageProps> = ({
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl sm:text-2xl font-bold serif text-[#1a2b48]">Popular Visa Destinations</h2>
           <button
-            onClick={() => onOpenBookModal('Visa')}
+            onClick={() => openLead('Visa Assistance — All Destinations')}
             className="text-xs sm:text-sm font-semibold text-gray-600 hover:text-[#800020] flex items-center gap-1 cursor-pointer"
           >
             <span>View All</span>
@@ -143,7 +136,7 @@ export const VisaPage: React.FC<VisaPageProps> = ({
           {VISA_DESTINATIONS.map((visa) => (
             <div
               key={visa.id}
-              onClick={() => onSelectVisa(visa)}
+              onClick={() => openLead(`Visa Assistance — ${visa.country} (${visa.title})`)}
               className="bg-white border border-gray-200/80 rounded-xl overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group cursor-pointer"
             >
               <div>

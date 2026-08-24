@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-// import React, { useState, useEffect } from 'react'; // useEffect was unused - cleaned up
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
-import FlightBookingModal from './components/FlightBookingModal';
-import HolidayDetailModal from './components/HolidayDetailModal';
-import HotelDetailModal from './components/HotelDetailModal';
-import VisaApplyModal from './components/VisaApplyModal';
-import UniversalBookingModal from './components/UniversalBookingModal';
-import { LeadProvider } from './context/LeadContext';
+import { LeadProvider, useLeadForm } from './context/LeadContext';
 
 import HomePage from './pages/HomePage';
 import FlightsPage from './pages/FlightsPage';
@@ -17,171 +11,97 @@ import HotelsPage from './pages/HotelsPage';
 import VisaPage from './pages/VisaPage';
 import ContactPage from './pages/ContactPage';
 
-import { Destination, FlightDeal, HolidayPackage, Hotel, VisaService, HOLIDAY_PACKAGES } from './data/travelData';
-import { SearchTab } from './components/SearchWidget';
+import type { SearchTab } from './components/SearchWidget';
 
-export function App() {
+type Service = 'Flights' | 'Hotels' | 'Holidays' | 'Visa';
+
+interface AppShellProps {
+  onShowToast: (msg: string) => void;
+}
+
+/**
+ * Single unified flow: every CTA on every page opens the ONE common enquiry
+ * form (LeadContext -> LeadFormModal). Context strings carry page-specific
+ * details so the owner email always shows what the user was looking at.
+ */
+const AppShell: React.FC<AppShellProps> = ({ onShowToast }) => {
+  const { openLead } = useLeadForm();
   const [activePage, setActivePage] = useState<string>('Home');
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Modal States
-  const [selectedFlight, setSelectedFlight] = useState<FlightDeal | null>(null);
-  const [selectedPackage, setSelectedPackage] = useState<HolidayPackage | null>(null);
-  const [selectedHotel, setSelectedHotel] = useState<Hotel | null>(null);
-  const [selectedVisa, setSelectedVisa] = useState<VisaService | null>(null);
-  const [universalModalService, setUniversalModalService] = useState<'Flights' | 'Hotels' | 'Holidays' | 'Visa' | null>(null);
-
-  // Listen to browser hash or history if needed
   const handleNavigate = (page: string) => {
     setActivePage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
+  // Navbar "Book Now" - generic booking enquiry per service.
+  const handleOpenBooking = (service?: Service) => {
+    openLead(`${service || 'Travel'} Booking — General Enquiry`);
   };
 
-  const handleSelectDestination = (dest: Destination) => {
-    // Check if matching holiday package exists
-    const matchedPkg = HOLIDAY_PACKAGES.find(
-      p => p.destination.toLowerCase().includes(dest.name.toLowerCase()) || 
-           dest.name.toLowerCase().includes(p.destination.toLowerCase())
-    );
-    if (matchedPkg) {
-      setSelectedPackage(matchedPkg);
-    } else {
-      setActivePage('Holidays');
-      showToast(`Exploring curated holiday packages for ${dest.name}...`);
-    }
-  };
-
-  // Search widget routing - navigates to the relevant page with a confirmation toast.
   const handleSearchSubmitted = (tab: SearchTab, params: Record<string, string>) => {
     if (tab === 'Flights') {
       setActivePage('Flights');
-      showToast(`Showing flights from ${params.from || 'Mumbai'} to ${params.to || 'Dubai'}...`);
+      onShowToast(`Showing flights from ${params.from || 'Mumbai'} to ${params.to || 'Dubai'}...`);
     } else if (tab === 'Hotels') {
       setActivePage('Hotels');
-      showToast(`Showing luxury stays in ${params.city || 'Dubai'}...`);
+      onShowToast(`Showing luxury stays in ${params.city || 'Dubai'}...`);
     } else if (tab === 'Holidays') {
       setActivePage('Holidays');
-      showToast(`Filtering packages for ${params.destination || 'All Destinations'}...`);
+      onShowToast(`Filtering packages for ${params.destination || 'All Destinations'}...`);
     } else if (tab === 'Visa') {
       setActivePage('Visa');
-      showToast(`Opening visa application requirements for ${params.country || 'selected destination'}...`);
+      onShowToast(`Opening visa application requirements for ${params.country || 'selected destination'}...`);
     }
   };
 
   return (
-    <LeadProvider onSuccess={showToast}>
-      <div className="flex flex-col min-h-screen font-sans bg-[#FAF9F6] text-[#1a2b48] antialiased selection:bg-brand-maroon selection:text-white">
-        {/* Global Navigation Bar */}
-        <Navbar 
-          activePage={activePage} 
-          onNavigate={handleNavigate} 
-          onOpenBookModal={(service) => setUniversalModalService(service || 'Holidays')}
-        />
+    <div className="flex flex-col min-h-screen font-sans bg-[#FAF9F6] text-[#1a2b48] antialiased selection:bg-brand-maroon selection:text-white">
+      {/* Global Navigation Bar */}
+      <Navbar
+        activePage={activePage}
+        onNavigate={handleNavigate}
+        onOpenBookModal={handleOpenBooking}
+      />
 
-        {/* Dynamic Page Views */}
-        <div className="flex-1">
-          {activePage === 'Home' && (
-            <HomePage 
-              onNavigate={handleNavigate}
-              onSelectDestination={handleSelectDestination}
-              onSelectPackage={(pkg) => setSelectedPackage(pkg)}
-              onOpenBookModal={(service) => setUniversalModalService(service || 'Holidays')}
-              onSearchSubmitted={handleSearchSubmitted}
-            />
-          )}
-
-          {activePage === 'Flights' && (
-            <FlightsPage 
-              onSelectFlight={(flight) => setSelectedFlight(flight)}
-              onOpenBookModal={(service) => setUniversalModalService(service || 'Flights')}
-              onShowToast={showToast}
-            />
-          )}
-
-          {activePage === 'Holidays' && (
-            <HolidaysPage 
-              onSelectPackage={(pkg) => setSelectedPackage(pkg)}
-              onOpenBookModal={(service) => setUniversalModalService(service || 'Holidays')}
-              onShowToast={showToast}
-            />
-          )}
-
-          {activePage === 'Hotels' && (
-            <HotelsPage 
-              onSelectHotel={(hotel) => setSelectedHotel(hotel)}
-              onOpenBookModal={(service) => setUniversalModalService(service || 'Hotels')}
-            />
-          )}
-
-          {activePage === 'Visa' && (
-            <VisaPage 
-              onSelectVisa={(visa) => setSelectedVisa(visa)}
-              onOpenBookModal={(service) => setUniversalModalService(service || 'Visa')}
-              onNavigate={handleNavigate}
-            />
-          )}
-
-          {activePage === 'Contact' && (
-            <ContactPage onShowToast={showToast} />
-          )}
-        </div>
-
-        {/* Global Footer */}
-        <Footer onNavigate={handleNavigate} onShowToast={showToast} />
-
-        {/* Modals & Dialogs */}
-        {selectedFlight && (
-          <FlightBookingModal
-            flight={selectedFlight}
-            onClose={() => setSelectedFlight(null)}
-            onSuccess={(details) => {
-              showToast(`Flight booking confirmed! PNR: ${details.pnr} for ${details.travelerName}`);
-            }}
+      {/* Dynamic Page Views */}
+      <div className="flex-1">
+        {activePage === 'Home' && (
+          <HomePage
+            onNavigate={handleNavigate}
+            onSearchSubmitted={handleSearchSubmitted}
           />
         )}
 
-        {selectedPackage && (
-          <HolidayDetailModal
-            pkg={selectedPackage}
-            onClose={() => setSelectedPackage(null)}
-            onInquirySubmitted={(msg) => showToast(msg)}
-          />
+        {activePage === 'Flights' && <FlightsPage onShowToast={onShowToast} />}
+
+        {activePage === 'Holidays' && <HolidaysPage onShowToast={onShowToast} />}
+
+        {activePage === 'Hotels' && <HotelsPage />}
+
+        {activePage === 'Visa' && (
+          <VisaPage onNavigate={handleNavigate} />
         )}
 
-        {selectedHotel && (
-          <HotelDetailModal
-            hotel={selectedHotel}
-            onClose={() => setSelectedHotel(null)}
-            onBookSuccess={(details) => {
-              showToast(`Hotel reservation confirmed for ${details.guestName} at ${details.hotel.name}!`);
-            }}
-          />
-        )}
-
-        {selectedVisa && (
-          <VisaApplyModal
-            visa={selectedVisa}
-            onClose={() => setSelectedVisa(null)}
-            onSubmitSuccess={(msg) => showToast(msg)}
-          />
-        )}
-
-        {universalModalService && (
-          <UniversalBookingModal
-            initialService={universalModalService}
-            onClose={() => setUniversalModalService(null)}
-            onSuccess={(msg) => showToast(msg)}
-          />
-        )}
-
-        {/* Notification Toast */}
-        <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
+        {activePage === 'Contact' && <ContactPage onShowToast={onShowToast} />}
       </div>
-    </LeadProvider>
+
+      {/* Global Footer */}
+      <Footer onNavigate={handleNavigate} onShowToast={onShowToast} />
+    </div>
+  );
+};
+
+export function App() {
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const showToast = (msg: string) => setToastMessage(msg);
+
+  return (
+    <>
+      <LeadProvider onSuccess={showToast}>
+        <AppShell onShowToast={showToast} />
+      </LeadProvider>
+      <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
+    </>
   );
 }
 

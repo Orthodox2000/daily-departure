@@ -8,14 +8,15 @@ import {
 //   Hotel as HotelIcon, Star, MapPin, Wifi, Coffee, Waves, Car, 
 //   Dumbbell, ArrowRight, Calendar, Users, SlidersHorizontal, ChevronDown, ChevronLeft, ChevronRight
 // } from 'lucide-react';
-import { HOTELS_DATA, Hotel } from '../data/travelData';
+import { HOTELS_DATA } from '../data/travelData';
+import { useLeadForm } from '../context/LeadContext';
 
 interface HotelsPageProps {
-  onSelectHotel: (hotel: Hotel) => void;
-  onOpenBookModal: (service?: 'Flights' | 'Hotels' | 'Holidays' | 'Visa') => void;
+  onShowToast?: (msg: string) => void;
 }
 
-export const HotelsPage: React.FC<HotelsPageProps> = ({ onSelectHotel, onOpenBookModal }) => {
+export const HotelsPage: React.FC<HotelsPageProps> = () => {
+  const { openLead } = useLeadForm();
   // Search state
   const [destination, setDestination] = useState('');
   const [checkIn, setCheckIn] = useState('');
@@ -162,6 +163,7 @@ export const HotelsPage: React.FC<HotelsPageProps> = ({ onSelectHotel, onOpenBoo
             {/* Search button */}
             <button
               type="button"
+              onClick={() => openLead(`Hotel Search — ${destination || 'Any destination'} • ${checkIn || 'flexible'} to ${checkOut || 'flexible'} • ${guests}`)}
               className="bg-[#800020] hover:bg-[#600018] text-white h-[50px] rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
             >
               <span>Search Hotels</span>
@@ -198,7 +200,7 @@ export const HotelsPage: React.FC<HotelsPageProps> = ({ onSelectHotel, onOpenBoo
               {filteredHotels.map((hotel) => (
                 <div
                   key={hotel.id}
-                  onClick={() => onSelectHotel(hotel)}
+                  onClick={() => openLead(`Hotel Enquiry — ${hotel.name}, ${hotel.location} • ${hotel.pricePerNight}/night`)}
                   className="bg-white border border-gray-200/80 rounded-xl overflow-hidden shadow-xs hover:shadow-md transition-all duration-200 flex flex-col sm:flex-row group cursor-pointer"
                 >
                   {/* Hotel Image Left */}
@@ -255,7 +257,7 @@ export const HotelsPage: React.FC<HotelsPageProps> = ({ onSelectHotel, onOpenBoo
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          onSelectHotel(hotel);
+                          openLead(`Hotel Enquiry — ${hotel.name}, ${hotel.location} • ${hotel.pricePerNight}/night`);
                         }}
                         className="bg-[#800020] hover:bg-[#600018] text-white px-4 py-1.5 rounded-lg text-xs font-medium transition-colors shadow-xs cursor-pointer"
                       >

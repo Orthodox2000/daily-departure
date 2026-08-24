@@ -63,9 +63,17 @@ export const LeadFormModal: React.FC<LeadFormModalProps> = ({ source, onSubmit, 
       <div className="bg-white w-full max-w-lg rounded-2xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col max-h-[92vh]">
         {/* Header */}
         <div className="bg-brand-maroon text-white px-6 py-4 flex items-center justify-between shrink-0">
-          <div>
-            <h3 className="font-bold text-lg leading-tight">Request a Callback</h3>
-            <p className="text-xs text-white/80">One quick form for everything - our expert calls you.</p>
+          <div className="flex items-center gap-3">
+            <img
+              src="/images/logo-small.jpeg"
+              alt="Daily Departure logo"
+              referrerPolicy="no-referrer"
+              className="w-11 h-11 rounded-lg bg-white object-contain p-1 shadow-sm"
+            />
+            <div>
+              <h3 className="font-bold text-lg leading-tight">Get More Info</h3>
+              <p className="text-xs text-white/80">One quick form for everything - our expert calls you.</p>
+            </div>
           </div>
           <button onClick={onClose} className="text-white/80 hover:text-white p-1 rounded-md transition-colors cursor-pointer" aria-label="Close form">
             <X size={20} />
@@ -179,7 +187,7 @@ export const LeadFormModal: React.FC<LeadFormModalProps> = ({ source, onSubmit, 
                 ) : (
                   <>
                     <Send size={15} />
-                    <span>Request Callback</span>
+                    <span>Get More Info</span>
                   </>
                 )}
               </button>
