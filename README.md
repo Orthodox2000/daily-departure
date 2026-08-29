@@ -8,6 +8,10 @@ powered by the **SelfIAM Mailer API**.
 
 **Live:** https://dailydeparture.in
 
+**Owner docs:** [`docs/OWNER-MANUAL.md`](docs/OWNER-MANUAL.md) (day-to-day
+operation) · [`docs/project-closeout.md`](docs/project-closeout.md) (closeout
+& handover record)
+
 ---
 
 ## Tech Stack
