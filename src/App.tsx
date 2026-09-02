@@ -72,7 +72,7 @@ const AppShell: React.FC<AppShellProps> = ({ onShowToast }) => {
           />
         )}
 
-        {activePage === 'Flights' && <FlightsPage onShowToast={onShowToast} />}
+        {activePage === 'Flights' && <FlightsPage onNavigate={handleNavigate} onShowToast={onShowToast} />}
 
         {activePage === 'Holidays' && <HolidaysPage onShowToast={onShowToast} />}
 

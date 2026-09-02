@@ -183,8 +183,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onShowToast }) => {
                   </div>
                   <div>
                     <span className="text-[11px] text-gray-400 uppercase font-semibold block">Phone</span>
-                    <a href="tel:+91976664040" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
-                      +91 9766 64040
+                    <a href="tel:+919152720740" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
+                      +91 9152 720740
+                    </a>
+                    <br />
+                    <a href="tel:+918104184040" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
+                      +91 8104 184040
                     </a>
                     <p className="text-xs text-gray-500 font-light mt-0.5">Mon - Sat: 9:00 AM - 7:00 PM</p>
                   </div>
@@ -197,8 +201,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onShowToast }) => {
                   </div>
                   <div>
                     <span className="text-[11px] text-gray-400 uppercase font-semibold block">Email</span>
-                    <a href="mailto:dailydeparture.in@gmail.com" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
-                      dailydeparture.in@gmail.com
+                    <a href="mailto:tour@dailydeparture.in" className="text-sm font-bold text-[#1a2b48] hover:text-[#800020]">
+                      tour@dailydeparture.in
                     </a>
                     <p className="text-xs text-gray-500 font-light mt-0.5">We reply within 24 hours</p>
                   </div>
@@ -210,10 +214,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onShowToast }) => {
                     <MapPin size={16} />
                   </div>
                   <div>
-                    <span className="text-[11px] text-gray-400 uppercase font-semibold block">Address</span>
+                    <span className="text-[11px] text-gray-400 uppercase font-semibold block">Headquarters</span>
                     <p className="text-xs text-gray-700 font-medium leading-relaxed">
-                      123, Travel Street, Andheri (E) <br />
-                      Mumbai, Maharashtra - 400069, India
+                      Office # 7, Shree Bhavan Society,<br />
+                      Behind Garam Masala,<br />
+                      Sector – 9 A, Airoli,<br />
+                      Navi Mumbai – 400708
                     </p>
                   </div>
                 </div>

@@ -143,16 +143,42 @@ export const HERO_CAROUSEL_SLIDES = [
 
 export const POPULAR_DESTINATIONS: Destination[] = [
   {
-    id: 'dubai',
-    name: 'Dubai',
-    country: 'United Arab Emirates',
+    id: 'thailand',
+    name: 'Thailand',
+    country: 'Thailand',
+    price: '₹21,999',
+    rawPrice: 21999,
+    image: '/images/thailand-destination.jpg',
+    category: 'Popular',
+    tagline: 'Golden temples, vibrant markets, and tropical island escapes',
+    rating: 4.8,
+    duration: '4 Nights / 5 Days',
+    iconType: 'plane'
+  },
+  {
+    id: 'vietnam',
+    name: 'Vietnam',
+    country: 'Vietnam',
     price: '₹24,999',
     rawPrice: 24999,
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
+    image: '/images/vietnam-destination.jpg',
+    category: 'Asia',
+    tagline: 'Ha Long Bay cruises, ancient towns, and street food heaven',
+    rating: 4.7,
+    duration: '5 Nights / 6 Days',
+    iconType: 'globe'
+  },
+  {
+    id: 'singapore-malaysia',
+    name: 'Singapore + Malaysia',
+    country: 'Singapore & Malaysia',
+    price: '₹29,999',
+    rawPrice: 29999,
+    image: '/images/singapore-malaysia-destination.jpg',
     category: 'Popular',
-    tagline: 'Futuristic skylines, desert dunes, and luxury shopping',
+    tagline: 'Futuristic skylines, rainforest adventures, and cultural fusion',
     rating: 4.9,
-    duration: '4 Nights / 5 Days',
+    duration: '5 Nights / 6 Days',
     iconType: 'plane'
   },
   {
@@ -161,42 +187,112 @@ export const POPULAR_DESTINATIONS: Destination[] = [
     country: 'Indonesia',
     price: '₹29,999',
     rawPrice: 29999,
-    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80',
+    image: '/images/bali-destination.jpg',
     category: 'Beach',
     tagline: 'Lush terraced hills, sacred temples, and turquoise waves',
     rating: 4.8,
     duration: '4 Nights / 5 Days',
     iconType: 'palm'
-  },
-  {
-    id: 'maldives',
-    name: 'Maldives',
-    country: 'Maldives',
-    price: '₹34,999',
-    rawPrice: 34999,
-    image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=800&q=80',
-    category: 'Luxury',
-    tagline: 'Private overwater villas and pristine coral reefs',
-    rating: 5.0,
-    duration: '4 Nights / 5 Days',
-    iconType: 'waves'
-  },
-  {
-    id: 'europe',
-    name: 'Europe',
-    country: 'France & Switzerland',
-    price: '₹59,999',
-    rawPrice: 59999,
-    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80',
-    category: 'Europe',
-    tagline: 'Timeless romantic streets, Eiffel Tower & alpine peaks',
-    rating: 4.9,
-    duration: '5 Nights / 6 Days',
-    iconType: 'globe'
   }
 ];
 
 export const HOLIDAY_PACKAGES: HolidayPackage[] = [
+  {
+    id: 'europe-grandeur',
+    title: 'Europe Grand Tour',
+    destination: 'Paris, Rome & Swiss Alps',
+    country: 'France, Italy & Switzerland',
+    duration: '8 Nights / 9 Days',
+    days: 9,
+    nights: 8,
+    price: '₹79,999',
+    rawPrice: 79999,
+    originalPrice: '₹99,000',
+    rating: 4.9,
+    reviewsCount: 210,
+    image: '/images/europe-package.jpg',
+    gallery: [
+      '/images/europe-package.jpg'
+    ],
+    category: 'Europe',
+    highlights: ['Eiffel Tower Summit Entry', 'Colosseum & Vatican Guided Tour', 'Swiss Alps Jungfraujoch Excursion', 'Scenic Glacier Express Train Ride'],
+    inclusions: ['8 Nights in 4-Star Hotels', 'Daily Breakfast & 3 Dinners', 'Economy Class Flights', 'All Airport & City Transfers'],
+    exclusions: ['Schengen Visa Fees', 'Travel Insurance', 'Personal Expenses', 'Meals not mentioned'],
+    itinerary: [
+      { day: 1, title: 'Arrival in Paris', desc: 'Welcome to Paris. Transfer to your hotel near the Champs-Élysées.' },
+      { day: 2, title: 'Paris City Tour & Eiffel Tower', desc: 'Visit the Eiffel Tower summit, Seine River cruise, and Louvre Museum.' },
+      { day: 3, title: 'Train to Zurich', desc: 'Scenic TGV transfer to Switzerland. Evening at Lake Zurich.' },
+      { day: 4, title: 'Jungfraujoch – Top of Europe', desc: 'Cable car to 3,454m with panoramic Alpine glacier views.' },
+      { day: 5, title: 'Lucerne & Mount Titlis', desc: 'Explore Lucerne Old Town and ride the revolving cable car to Mount Titlis.' },
+      { day: 6, title: 'Glacier Express to Zermatt', desc: 'Full-day scenic train through 291 bridges and 91 tunnels.' },
+      { day: 7, title: 'Flight to Rome', desc: 'Fly to Rome. Evening walk through Trastevere neighborhood.' },
+      { day: 8, title: 'Rome & Vatican City', desc: 'Guided Colosseum, Roman Forum, and Vatican Museums tour.' },
+      { day: 9, title: 'Departure from Rome', desc: 'Airport transfer. Arrivederci, Europe!' }
+    ]
+  },
+  {
+    id: 'usa-explorer',
+    title: 'USA Explorer',
+    destination: 'New York, Washington & Niagara',
+    country: 'United States',
+    duration: '7 Nights / 8 Days',
+    days: 8,
+    nights: 7,
+    price: '₹89,999',
+    rawPrice: 89999,
+    originalPrice: '₹1,10,000',
+    rating: 4.8,
+    reviewsCount: 175,
+    image: '/images/usa-package.jpg',
+    gallery: [
+      '/images/usa-package.jpg'
+    ],
+    category: 'Adventure',
+    highlights: ['Statue of Liberty Ferry & Ellis Island', 'Niagara Falls Maid of the Mist', 'Washington DC Monuments Night Tour', 'Times Square & Broadway Experience'],
+    inclusions: ['7 Nights in 4-Star Hotels', 'Daily Breakfast', 'Domestic Flights (NYC–DC–NYC)', 'All Transfers & Sightseeing'],
+    exclusions: ['US Visa (B1/B2) Fees', 'Travel Insurance', 'Personal Expenses', 'Meals not mentioned'],
+    itinerary: [
+      { day: 1, title: 'Arrival in New York City', desc: 'Airport pickup and transfer to Times Square hotel.' },
+      { day: 2, title: 'Manhattan & Statue of Liberty', desc: 'Ferry to Liberty Island, Ellis Island, and Brooklyn Bridge walk.' },
+      { day: 3, title: 'Central Park & Broadway', desc: 'Morning Central Park tour, afternoon at Top of the Rock, evening Broadway show.' },
+      { day: 4, title: 'Niagara Falls Day Trip', desc: 'Fly to Buffalo and visit Niagara Falls with Maid of the Mist boat ride.' },
+      { day: 5, title: 'Train to Washington DC', desc: 'Amtrak Acela to Washington DC. Evening Monuments tour.' },
+      { day: 6, title: 'Washington DC Sightseeing', desc: 'Capitol Building, Lincoln Memorial, Smithsonian Museums, and White House.' },
+      { day: 7, title: 'Return to New York', desc: 'Flight back. Shopping at Fifth Avenue and farewell dinner.' },
+      { day: 8, title: 'Departure', desc: 'Airport transfer for your flight home.' }
+    ]
+  },
+  {
+    id: 'australia-escape',
+    title: 'Australia Escape',
+    destination: 'Sydney, Melbourne & Great Barrier Reef',
+    country: 'Australia',
+    duration: '6 Nights / 7 Days',
+    days: 7,
+    nights: 6,
+    price: '₹74,999',
+    rawPrice: 74999,
+    originalPrice: '₹92,000',
+    rating: 4.9,
+    reviewsCount: 148,
+    image: '/images/australia-package.jpg',
+    gallery: [
+      '/images/australia-package.jpg'
+    ],
+    category: 'Adventure',
+    highlights: ['Sydney Opera House Guided Tour', 'Great Barrier Reef Snorkeling', 'Great Ocean Road Helicopter Ride', 'Melbourne Laneways Street Art Walk'],
+    inclusions: ['6 Nights in 4-Star Hotels', 'Daily Breakfast & 2 Lunches', 'Domestic Flights (Sydney–Melbourne)', 'All Transfers & Tours'],
+    exclusions: ['Australia Visa (subclass 600)', 'Travel Insurance', 'Personal Expenses', 'Meals not mentioned'],
+    itinerary: [
+      { day: 1, title: 'Arrival in Sydney', desc: 'Airport transfer and check-in. Evening Darling Harbour stroll.' },
+      { day: 2, title: 'Sydney Icons Tour', desc: 'Sydney Opera House tour, Harbour Bridge climb, and Bondi Beach.' },
+      { day: 3, title: 'Flight to Cairns & Great Barrier Reef', desc: 'Fly to Cairns. Full-day snorkeling and semi-submarine reef tour.' },
+      { day: 4, title: 'Cairns Rainforest & Kuranda', desc: 'Skyrail Rainforest Cableway and Kuranda Village exploration.' },
+      { day: 5, title: 'Fly to Melbourne', desc: 'Flight to Melbourne. Evening laneways food tour.' },
+      { day: 6, title: 'Great Ocean Road Day Trip', desc: 'Helicopter ride, Twelve Apostles, and coastal drives.' },
+      { day: 7, title: 'Departure from Melbourne', desc: 'Airport transfer. See you again, Australia!' }
+    ]
+  },
   {
     id: 'maldives-escape',
     title: 'Maldives Escape',

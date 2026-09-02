@@ -12,10 +12,12 @@ import { FLIGHT_DEALS } from '../data/travelData';
 import { useLeadForm } from '../context/LeadContext';
 
 interface FlightsPageProps {
+  onNavigate: (page: string) => void;
   onShowToast: (msg: string) => void;
 }
 
 export const FlightsPage: React.FC<FlightsPageProps> = ({ 
+  onNavigate,
   onShowToast 
 }) => {
   const [tripType, setTripType] = useState<'One Way' | 'Round Trip' | 'Multi City'>('One Way');
@@ -164,7 +166,7 @@ export const FlightsPage: React.FC<FlightsPageProps> = ({
             {/* Search Button */}
             <button
               type="button"
-              onClick={() => openLead(`Flight Search — ${origin} to ${destination} • ${departureDate || 'flexible dates'} • ${travellers}`)}
+              onClick={() => onNavigate('Contact')}
               className="bg-[#800020] hover:bg-[#600018] text-white h-[50px] rounded-lg font-medium text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-xs transition-all cursor-pointer"
             >
               <span>Search Flights</span>

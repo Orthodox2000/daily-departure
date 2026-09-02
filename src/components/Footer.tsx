@@ -110,24 +110,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onShowToast }) => {
           </h4>
           <ul className="text-xs space-y-4">
             <li>
-              <a href="tel:+91976664040" className="flex items-start gap-3 hover:text-white transition-colors group">
+              <a href="tel:+919152720740" className="flex items-start gap-3 hover:text-white transition-colors group">
                 <div className="p-2 rounded-sm bg-white/10 text-brand-orange group-hover:bg-brand-maroon group-hover:text-white transition-colors mt-0.5">
                   <Phone size={14} />
                 </div>
                 <div>
                   <span className="text-[10px] text-gray-400 block uppercase tracking-wider">Helpline</span>
-                  <span className="font-semibold text-white text-xs">+91 9766 64040 | +91 81041 84040</span>
+                  <span className="font-semibold text-white text-xs">+91 9152 720740 | +91 8104 184040</span>
                 </div>
               </a>
             </li>
             <li>
-              <a href="mailto:dailydeparture.in@gmail.com" className="flex items-start gap-3 hover:text-white transition-colors group">
+              <a href="mailto:tour@dailydeparture.in" className="flex items-start gap-3 hover:text-white transition-colors group">
                 <div className="p-2 rounded-sm bg-white/10 text-brand-orange group-hover:bg-brand-maroon group-hover:text-white transition-colors mt-0.5">
                   <Mail size={14} />
                 </div>
                 <div>
                   <span className="text-[10px] text-gray-400 block uppercase tracking-wider">Email</span>
-                  <span className="font-semibold text-white text-xs">dailydeparture.in@gmail.com</span>
+                  <span className="font-semibold text-white text-xs">tour@dailydeparture.in</span>
                 </div>
               </a>
             </li>
@@ -138,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onShowToast }) => {
                 </div>
                 <div>
                   <span className="text-[10px] text-gray-400 block uppercase tracking-wider">Headquarters</span>
-                  <span className="text-gray-300 text-xs">123, Travel Street, Andheri (E), Mumbai, India</span>
+                  <span className="text-gray-300 text-xs">Office # 7, Shree Bhavan Society, Behind Garam Masala, Sector – 9 A, Airoli, Navi Mumbai – 400708</span>
                 </div>
               </div>
             </li>
