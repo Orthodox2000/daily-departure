@@ -116,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onShowToast }) => {
                 </div>
                 <div>
                   <span className="text-[10px] text-gray-400 block uppercase tracking-wider">Helpline</span>
-                  <span className="font-semibold text-white text-xs">+91 9766 64040</span>
+                  <span className="font-semibold text-white text-xs">+91 9766 64040 | +91 81041 84040</span>
                 </div>
               </a>
             </li>
