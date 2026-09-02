@@ -17,13 +17,13 @@ export const HomePage: React.FC<HomePageProps> = ({
   onSearchSubmitted
 }) => {
   const { openLead } = useLeadForm();
-  // Hero background images taken directly from curated holiday package cards
-  const heroBackgrounds = HOLIDAY_PACKAGES.map(pkg => ({
-    id: pkg.id,
-    title: pkg.title,
-    destination: pkg.destination,
-    image: pkg.image,
-    price: pkg.price
+  // Hero background images from Popular Destinations (Thailand, Vietnam, Singapore+Malaysia, Bali)
+  const heroBackgrounds = POPULAR_DESTINATIONS.map(dest => ({
+    id: dest.id,
+    title: dest.name,
+    destination: dest.name,
+    image: dest.image,
+    price: dest.price
   }));
 
   const [activeHeroIdx, setActiveHeroIdx] = useState(0);
