@@ -377,7 +377,7 @@ three.
 | Code | GitHub: `Orthodox2000/daily-departure` |
 | Live site | https://dailydeparture.in (Vercel) |
 | Email sending | SelfIAM Mailer dashboard (`mailer.selfiam.site`) |
-| Enquiries land in | `OWNER_EMAIL` (per `.env.example`: `ankitmali50@mail.com`) |
+| Enquiries land in | `OWNER_EMAIL` (set in Vercel env vars; `.env.example` only holds a test placeholder) |
 | Public contact email | `dailydeparture.in@gmail.com` |
 | Public phone | `+91 9766 64040` |
 | Address | 123, Travel Street, Andheri (E), Mumbai 400069, India |

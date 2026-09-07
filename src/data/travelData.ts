@@ -50,7 +50,13 @@ export interface HolidayPackage {
   gallery: string[];
   category: 'Beach' | 'Europe' | 'Asia' | 'Luxury' | 'Honeymoon' | 'Adventure';
   highlights: string[];
-  inclusions: string[];
+  includes: {
+    hotel: string;
+    flight: string;
+    visa: string;
+    entranceTickets: string;
+    transportation: string;
+  };
   exclusions: string[];
   itinerary: { day: number; title: string; desc: string }[];
 }
@@ -216,7 +222,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Europe',
     highlights: ['Eiffel Tower Summit Entry', 'Colosseum & Vatican Guided Tour', 'Swiss Alps Jungfraujoch Excursion', 'Scenic Glacier Express Train Ride'],
-    inclusions: ['8 Nights in 4-Star Hotels', 'Daily Breakfast & 3 Dinners', 'Economy Class Flights', 'All Airport & City Transfers'],
+    includes: {
+      hotel: '8 Nights in 4-Star Hotels',
+      flight: 'Economy Class International Flights',
+      visa: 'Visa assistance (Schengen Visa fees extra)',
+      entranceTickets: 'Eiffel Tower Summit, Colosseum & Vatican Entries',
+      transportation: 'All Airport & City Transfers + Scenic Train Rides'
+    },
     exclusions: ['Schengen Visa Fees', 'Travel Insurance', 'Personal Expenses', 'Meals not mentioned'],
     itinerary: [
       { day: 1, title: 'Arrival in Paris', desc: 'Welcome to Paris. Transfer to your hotel near the Champs-Élysées.' },
@@ -249,7 +261,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Adventure',
     highlights: ['Statue of Liberty Ferry & Ellis Island', 'Niagara Falls Maid of the Mist', 'Washington DC Monuments Night Tour', 'Times Square & Broadway Experience'],
-    inclusions: ['7 Nights in 4-Star Hotels', 'Daily Breakfast', 'Domestic Flights (NYC–DC–NYC)', 'All Transfers & Sightseeing'],
+    includes: {
+      hotel: '7 Nights in 4-Star Hotels',
+      flight: 'Domestic Flights (NYC–DC–NYC)',
+      visa: 'US B1/B2 Visa fees extra',
+      entranceTickets: 'Statue of Liberty, Niagara Falls & Monument Entries',
+      transportation: 'All Transfers & Sightseeing'
+    },
     exclusions: ['US Visa (B1/B2) Fees', 'Travel Insurance', 'Personal Expenses', 'Meals not mentioned'],
     itinerary: [
       { day: 1, title: 'Arrival in New York City', desc: 'Airport pickup and transfer to Times Square hotel.' },
@@ -281,7 +299,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Adventure',
     highlights: ['Sydney Opera House Guided Tour', 'Great Barrier Reef Snorkeling', 'Great Ocean Road Helicopter Ride', 'Melbourne Laneways Street Art Walk'],
-    inclusions: ['6 Nights in 4-Star Hotels', 'Daily Breakfast & 2 Lunches', 'Domestic Flights (Sydney–Melbourne)', 'All Transfers & Tours'],
+    includes: {
+      hotel: '6 Nights in 4-Star Hotels',
+      flight: 'Domestic Flights (Sydney–Melbourne)',
+      visa: 'Australia Visa (subclass 600) fees extra',
+      entranceTickets: 'Opera House, Great Barrier Reef & Ocean Road Entries',
+      transportation: 'All Transfers & Tours'
+    },
     exclusions: ['Australia Visa (subclass 600)', 'Travel Insurance', 'Personal Expenses', 'Meals not mentioned'],
     itinerary: [
       { day: 1, title: 'Arrival in Sydney', desc: 'Airport transfer and check-in. Evening Darling Harbour stroll.' },
@@ -313,7 +337,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Luxury',
     highlights: ['Private Overwater Villa Stay', 'Complimentary Speedboat Transfers', 'Daily Breakfast & Dinner', 'Guided Snorkeling Safari'],
-    inclusions: ['4 Nights in Lagoon Overwater Villa', 'Daily Breakfast & Dinner', 'Roundtrip Airport Speedboat Transfers', 'Sunset Dolphin Watching Cruise'],
+    includes: {
+      hotel: '4 Nights in Lagoon Overwater Villa',
+      flight: 'International Flights (extra)',
+      visa: 'Visa on arrival (complimentary)',
+      entranceTickets: 'Guided Snorkeling Safari & Dolphin Cruise',
+      transportation: 'Roundtrip Airport Speedboat Transfers'
+    },
     exclusions: ['International Flights', 'Travel Insurance', 'Personal Water Sports', 'Spa services'],
     itinerary: [
       { day: 1, title: 'Arrival at Male & Speedboat Transfer', desc: 'Arrive at Male Airport and transfer to your luxury private island resort.' },
@@ -343,7 +373,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Europe',
     highlights: ['Mount Titlis Cable Car Excursion', 'Lucerne Lake Cruise', 'Interlaken & Jungfraujoch Top of Europe', 'Swiss Travel Pass Included'],
-    inclusions: ['5 Nights in 4-Star Alpine Hotels', 'Daily Buffet Breakfast', 'Swiss Travel Pass (First Class)', 'Mount Titlis & Ice Flyer Pass'],
+    includes: {
+      hotel: '5 Nights in 4-Star Alpine Hotels',
+      flight: 'International Airfare (extra)',
+      visa: 'Visa processing fees extra',
+      entranceTickets: 'Mount Titlis, Ice Flyer & Jungfraujoch Entries',
+      transportation: 'Swiss Travel Pass (First Class)'
+    },
     exclusions: ['Visa Processing Fees', 'International Airfare', 'Personal Expenses'],
     itinerary: [
       { day: 1, title: 'Arrival in Zurich & Transfer to Lucerne', desc: 'Arrive in Zurich and take the scenic train to Lake Lucerne.' },
@@ -373,7 +409,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Beach',
     highlights: ['Phi Phi Islands Speedboat Day Tour', 'Bangkok Temples & Chao Phraya Dinner Cruise', 'Patong Beachfront Resort', 'Airport Transfers Included'],
-    inclusions: ['4 Nights stay in 4-Star Resort', 'Daily Breakfast', 'Phi Phi Islands Tour with Buffet Lunch', 'Bangkok City & Temple Tour'],
+    includes: {
+      hotel: '4 Nights stay in 4-Star Resort',
+      flight: 'International Flights (extra)',
+      visa: 'Visa on arrival assisted',
+      entranceTickets: 'Phi Phi Islands & Grand Palace Entries',
+      transportation: 'Airport Transfers + Speedboat Tour'
+    },
     exclusions: ['National park fees ($15)', 'Personal shopping', 'Gratuities'],
     itinerary: [
       { day: 1, title: 'Arrival in Phuket', desc: 'Warm reception and transfer to your beachfront resort in Phuket.' },
@@ -402,7 +444,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Honeymoon',
     highlights: ['Ubud Rice Terraces & Jungle Swing', 'Tanah Lot Sunset Rock Temple', 'Private Pool Villa in Seminyak', 'Traditional Balinese Spa'],
-    inclusions: ['4 Nights in Private Pool Villa', 'Daily Floating Breakfast', 'Private AC Car for all tours', 'Balinese Massage Session'],
+    includes: {
+      hotel: '4 Nights in Private Pool Villa',
+      flight: 'International Flights (extra)',
+      visa: 'Visa on Arrival (extra)',
+      entranceTickets: 'Tanah Lot, Uluwatu Cliff & Jungle Swing Entries',
+      transportation: 'Private AC Car for all tours'
+    },
     exclusions: ['Visa on Arrival', 'International Flights', 'Personal expenses'],
     itinerary: [
       { day: 1, title: 'Arrival in Denpasar & Ubud Transfer', desc: 'Private transfer to your serene jungle villa in Ubud.' },
@@ -431,7 +479,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Luxury',
     highlights: ['Burj Khalifa 124th Floor Entry', 'Desert Safari with BBQ Buffet & Dune Bashing', 'Dubai Marina Luxury Yacht Cruise', 'Dubai Frame & City Tour'],
-    inclusions: ['4 Nights in 4-Star Downtown Hotel', 'Daily Breakfast', 'Desert Safari 4x4 with Dinner', 'Burj Khalifa Non-Prime Ticket'],
+    includes: {
+      hotel: '4 Nights in 4-Star Downtown Hotel',
+      flight: 'International Flights (extra)',
+      visa: 'UAE Tourist Visa fees extra',
+      entranceTickets: 'Burj Khalifa 124th Floor Entry',
+      transportation: 'All Airport & City Transfers + Safari 4x4'
+    },
     exclusions: ['Tourism Dirham fee', 'Personal shopping'],
     itinerary: [
       { day: 1, title: 'Arrival & Dubai Marina Dhow Cruise', desc: 'Check in to your hotel and enjoy an evening buffet dinner cruise.' },
@@ -460,7 +514,13 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
     category: 'Europe',
     highlights: ['Santorini Cliffside Hotel with Caldera View', 'Oia Sunset Walk', 'Athens Acropolis Guided Tour', 'High-Speed Ferry Transfers'],
-    inclusions: ['3 Nights Santorini + 2 Nights Athens Hotel', 'Daily Greek Breakfast', 'High-Speed Ferry Tickets', 'Athens Acropolis Entry'],
+    includes: {
+      hotel: '3 Nights Santorini + 2 Nights Athens Hotel',
+      flight: 'International Flights (extra)',
+      visa: 'Schengen Visa fees extra',
+      entranceTickets: 'Acropolis Entry & Caldera Cruise',
+      transportation: 'High-Speed Ferry Transfers'
+    },
     exclusions: ['Schengen Visa', 'International Flights', 'Tourist tax'],
     itinerary: [
       { day: 1, title: 'Arrival in Athens', desc: 'Arrive in historic Athens and check in to your boutique hotel.' },

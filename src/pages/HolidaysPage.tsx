@@ -9,6 +9,9 @@ import {
 //   Tag, ShieldCheck, Headset, CalendarCheck, Lock, Send, CheckCircle2, ChevronDown
 // } from 'lucide-react';
 import { HOLIDAY_PACKAGES } from '../data/travelData';
+import type { HolidayPackage } from '../data/travelData';
+import { PackageCard } from '../components/PackageCard';
+import { PackageDetailModal } from '../components/PackageDetailModal';
 import { useLeadForm } from '../context/LeadContext';
 
 interface HolidaysPageProps {
@@ -24,6 +27,7 @@ export const HolidaysPage: React.FC<HolidaysPageProps> = ({
   const [searchDepartFrom, setSearchDepartFrom] = useState('');
   const [searchDepartTo, setSearchDepartTo] = useState('');
   const [searchDuration, setSearchDuration] = useState('Any Duration');
+  const [selectedPkg, setSelectedPkg] = useState<HolidayPackage | null>(null);
   const { openLead } = useLeadForm();
 
   const departureLabel = searchDepartFrom && searchDepartTo
@@ -171,49 +175,7 @@ export const HolidaysPage: React.FC<HolidaysPageProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {filteredPackages.map((pkg) => (
-                <div
-                  key={pkg.id}
-                  onClick={() => openLead(`Holiday Package — ${pkg.title} (${pkg.duration}) • ${pkg.price}`)}
-                  className="bg-white rounded-xl overflow-hidden border border-gray-200/80 shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between group cursor-pointer"
-                >
-                  <div>
-                    <div className="relative h-44 overflow-hidden">
-                      <img
-                        src={pkg.image}
-                        alt={pkg.title}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                      />
-                      <div className="absolute top-2.5 right-2.5 bg-[#800020] text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-md">
-                        {pkg.duration}
-                      </div>
-                    </div>
-
-                    <div className="p-4 space-y-1">
-                      <h3 className="text-base font-bold serif text-[#1a2b48] group-hover:text-[#800020] transition-colors leading-tight">
-                        {pkg.title}
-                      </h3>
-                      <p className="text-xs text-gray-400 flex items-center gap-1">
-                        <MapPin size={11} className="text-gray-400" />
-                        <span>{pkg.destination}</span>
-                      </p>
-                      <p className="text-xs text-gray-400 flex items-center gap-1">
-                        <Clock size={11} className="text-gray-400" />
-                        <span>{pkg.duration}</span>
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="p-4 pt-2 border-t border-gray-100 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] text-gray-400 block uppercase font-medium">Starting From</span>
-                      <span className="text-base font-bold serif text-[#800020]">{pkg.price}</span>
-                    </div>
-                    <div className="w-7 h-7 rounded-full bg-rose-50 text-[#800020] group-hover:bg-[#800020] group-hover:text-white flex items-center justify-center transition-colors">
-                      <ArrowRight size={13} />
-                    </div>
-                  </div>
-                </div>
+                <PackageCard key={pkg.id} pkg={pkg} onView={setSelectedPkg} />
               ))}
             </div>
           </div>
@@ -286,6 +248,18 @@ export const HolidaysPage: React.FC<HolidaysPageProps> = ({
           </div>
         </div>
       </section>
+
+      {selectedPkg && (
+        <PackageDetailModal
+          pkg={selectedPkg}
+          onClose={() => setSelectedPkg(null)}
+          onEnquire={() => {
+            const p = selectedPkg;
+            setSelectedPkg(null);
+            openLead(`Holiday Package — ${p.title} (${p.duration}) • ${p.price}`);
+          }}
+        />
+      )}
     </main>
   );
 };

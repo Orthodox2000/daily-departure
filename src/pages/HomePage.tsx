@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 // Synced with ref/src/pages/HomePage.tsx - updated homepage layout.
-import { Calendar, BadgePercent, ShieldCheck, Globe, Headphones, Star, ArrowRight, PlaneTakeoff } from 'lucide-react';
+import { BadgePercent, ShieldCheck, Globe, Headphones, Star, ArrowRight, PlaneTakeoff } from 'lucide-react';
 // Unused icon cleaned up: Sparkles (hero badge removed)
 // import { Calendar, BadgePercent, ShieldCheck, Globe, Headphones, Star, ArrowRight, PlaneTakeoff, Sparkles } from 'lucide-react';
 import { SearchWidget, SearchTab } from '../components/SearchWidget';
+import { PackageCard } from '../components/PackageCard';
+import { PackageDetailModal } from '../components/PackageDetailModal';
 import { POPULAR_DESTINATIONS, HOLIDAY_PACKAGES, TESTIMONIALS } from '../data/travelData';
+import type { HolidayPackage } from '../data/travelData';
 import { useLeadForm } from '../context/LeadContext';
 
 interface HomePageProps {
@@ -27,6 +30,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   }));
 
   const [activeHeroIdx, setActiveHeroIdx] = useState(0);
+  const [selectedPkg, setSelectedPkg] = useState<HolidayPackage | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -212,63 +216,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {HOLIDAY_PACKAGES.slice(0, 3).map((pkg) => (
-              <div
-                key={pkg.id}
-                id={`featured-pkg-${pkg.id}`}
-                onClick={() => openLead(`Holiday Package — ${pkg.title} (${pkg.duration}) • ${pkg.price}`)}
-                className="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-lg border border-[#e5e5e5] transition-all duration-300 flex flex-col cursor-pointer group"
-              >
-                <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={pkg.image}
-                    alt={pkg.title}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                  />
-                  <div className="absolute top-4 left-4 bg-brand-maroon text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-sm shadow-sm">
-                    {pkg.category}
-                  </div>
-                  <div className="absolute bottom-3 left-4 bg-black/70 backdrop-blur-xs text-white text-xs px-2.5 py-1 rounded-sm flex items-center gap-1.5 font-medium">
-                    <Calendar size={13} className="text-brand-orange" />
-                    <span>{pkg.duration}</span>
-                  </div>
-                </div>
-
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div>
-                    <div className="flex items-center gap-1.5 text-xs text-amber-600 font-bold mb-2">
-                      <Star size={13} fill="currentColor" />
-                      <span>{pkg.rating}</span>
-                      <span className="text-gray-400 font-normal">({pkg.reviewsCount} reviews)</span>
-                    </div>
-                    <h3 className="font-bold serif text-xl text-[#1a2b48] group-hover:text-brand-maroon transition-colors line-clamp-1">
-                      {pkg.title}
-                    </h3>
-                    <p className="text-xs text-gray-500 mt-2 line-clamp-2 leading-relaxed">
-                      {pkg.highlights.slice(0, 2).join(' • ')}
-                    </p>
-                  </div>
-
-                  <div className="border-t border-[#e5e5e5] pt-4 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] text-gray-400 uppercase font-semibold block">All Inclusive From</span>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-bold serif text-brand-maroon">{pkg.price}</span>
-                        <span className="text-xs text-gray-400 line-through">{pkg.originalPrice}</span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        openLead(`Holiday Package — ${pkg.title} (${pkg.duration}) • ${pkg.price}`);
-                      }}
-                      className="bg-brand-maroon text-white hover:bg-brand-maroon-dark px-4 py-2 rounded-sm text-xs font-semibold transition-all cursor-pointer"
-                    >
-                      View Details
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <PackageCard key={pkg.id} pkg={pkg} featured onView={setSelectedPkg} />
             ))}
           </div>
         </div>
@@ -389,6 +337,18 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      {selectedPkg && (
+        <PackageDetailModal
+          pkg={selectedPkg}
+          onClose={() => setSelectedPkg(null)}
+          onEnquire={() => {
+            const p = selectedPkg;
+            setSelectedPkg(null);
+            openLead(`Holiday Package — ${p.title} (${p.duration}) • ${p.price}`);
+          }}
+        />
+      )}
     </div>
   );
 };
