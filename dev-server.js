@@ -5,6 +5,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import leadsHandler from './api/leads.js';
+import visitorsHandler from './api/visitors.js';
 
 // .env.local takes priority; falls back to .env (matches Vercel conventions).
 dotenv.config({ path: '.env.local' });
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json({ limit: '64kb' }));
 
 app.use('/api/leads', (req, res) => leadsHandler(req, res));
+app.use('/api/visitors', (req, res) => visitorsHandler(req, res));
 
 const port = Number(process.env.DEV_SERVER_PORT) || 3001;
 app.listen(port, () => {

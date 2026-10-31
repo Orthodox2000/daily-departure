@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Synced with ref/src/components/Footer.tsx - updated footer design.
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { useLeadForm } from '../context/LeadContext';
+import { trackVisit } from '../api/visitors';
 
 interface FooterProps {
   onNavigate: (page: string) => void;
@@ -12,6 +13,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onShowToast }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const { openLead } = useLeadForm();
+  const [visitorsToday, setVisitorsToday] = useState<number | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    trackVisit().then((n) => { if (active) setVisitorsToday(n); });
+    return () => { active = false; };
+  }, []);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -189,7 +197,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onShowToast }) => {
 
       {/* Copyright Bar */}
       <div className="max-w-6xl mx-auto px-6 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-gray-400">
-        <p>© {new Date().getFullYear()} Daily Departure. All Rights Reserved. Govt of India Approved Travel Agency.</p>
+        <div className="flex flex-col items-center sm:items-start gap-1">
+          <p>© {new Date().getFullYear()} Daily Departure. All Rights Reserved. Govt of India Approved Travel Agency.</p>
+          {visitorsToday !== null && (
+            <p id="footer-visitor-count" className="text-gray-400">
+              Visitors today: <strong className="text-white font-semibold">{visitorsToday.toLocaleString('en-IN')}</strong>
+            </p>
+          )}
+        </div>
         <div className="flex gap-6">
           <button onClick={() => onShowToast('Privacy Policy: All personal data is securely encrypted.')} className="hover:text-gray-200 cursor-pointer">
             Privacy Policy

